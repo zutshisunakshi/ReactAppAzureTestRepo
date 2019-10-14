@@ -1,25 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { Route } from 'react-router-dom';
+
+import AddToDo from './containers/react-add-todo';
+import ToDoListContainer from './containers/react-todos-list';
+import Callback from './containers/auth0-callback';
+import NavigationContainer from './containers/react-navigation-container';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+
+const appInsights = new ApplicationInsights({
+  config: {
+    instrumentationKey: 'fb95d982-0d51-42af-9bc1-beeb99aabb6d'
+    /* ...Other Configuration Options... */
+  }
+});
+appInsights.loadAppInsights();
+// appInsights.trackPageView(); // Manually call trackPageView to establish the current user/session/pageview
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row className="row">
+        <Col xs={12}>
+          <h1>To Do List</h1>
+          {/* <AddToDo />
+            <ToDoListContainer /> */}
+          {/* <Navigation /> */}
+          {/* <Route exact path="/" component={ToDoListContainer} />
+            <Route exact path="/new-item" component={AddToDo} /> */}
+          <NavigationContainer />
+          <Route exact path="/" component={ToDoListContainer} />
+          <Route exact path="/new-item" component={AddToDo} />
+          <Route exact path="/callback" component={Callback} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
